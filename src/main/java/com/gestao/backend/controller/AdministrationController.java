@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/adm")
+@RequestMapping("/api/adm")
 public class AdministrationController {
 
     private final CourseServiceImpl courseService;

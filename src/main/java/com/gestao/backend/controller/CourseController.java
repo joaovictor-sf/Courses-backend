@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CourseController {
 
     //private final CourseRepository courseRepository;
