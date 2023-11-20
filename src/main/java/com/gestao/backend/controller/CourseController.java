@@ -37,13 +37,21 @@ public class CourseController {
     @Transactional
     public ResponseEntity updateCourse(@RequestBody @Valid CourseDTO data) {
         Course course = courseService.update(data);
+        CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
 
-        if (course != null) return ResponseEntity.ok(course);
+        if (course != null) return ResponseEntity.ok(courseDTO);
 
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity desativateCourse(@PathVariable Long id) {
+        courseService.invalidar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
     @Transactional
     public ResponseEntity deleteCourse(@PathVariable Long id) {
         courseService.delete(id);

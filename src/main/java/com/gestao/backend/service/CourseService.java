@@ -6,10 +6,14 @@ import com.gestao.backend.domain.dto.CourseDTO;
 import java.util.List;
 
 public interface CourseService {
-    List<Course> findAllValidad();
-    List<Course> findAllNotValidad();
+    List<CourseDTO> findAllValidad();
+    //List<Course> findAllValidad();
+    List<CourseDTO> findAllNotValidad();
+    //List<Course> findAllNotValidad();
     void add(CourseDTO course);
     Course update(CourseDTO course);
-    void delete(Long id);
+    void invalidar(Long id);
     void validar(Long id);
+
+    void delete(Long id);
 }

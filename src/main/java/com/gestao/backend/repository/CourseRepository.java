@@ -10,4 +10,6 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findAllByActiveTrue();
     List<Course> findAllByActiveFalse();
+
+    List<Course> findAllByUserMatricula(String matricula);
 }
