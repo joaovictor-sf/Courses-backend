@@ -28,13 +28,15 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// Não cria sessão
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/course").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/course").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/course").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/course/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/course/delete/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/adm").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/adm/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/user").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
