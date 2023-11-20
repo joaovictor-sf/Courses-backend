@@ -15,18 +15,34 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     private String description;
     private String imageUrl;
     private String videoUrl;
     private Boolean active;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)//FetchType.LAZY: carrega o objeto apenas quando for necessário. optional = false: não permite que o objeto seja nulo
+    @JoinColumn(name = "user_matricula", nullable = false)
+    private User user;
+    //@ManyToOne
+    //@JoinColumn(name = "user_matricula", nullable = false)
     public Course(CourseDTO course) {
         this.name = course.name();
         this.description = "";
         this.imageUrl = "";
         this.videoUrl = "";
         this.active = false;
+        this.user = course.user();
+    }
+
+    public Course(CourseDTO course, User user) {
+        this.name = course.name();
+        this.description = "";
+        this.imageUrl = "";
+        this.videoUrl = "";
+        this.active = false;
+        this.user = user;
     }
 
 }

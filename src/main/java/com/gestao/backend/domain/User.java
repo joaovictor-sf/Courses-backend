@@ -1,13 +1,13 @@
 package com.gestao.backend.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.gestao.backend.domain.dto.RegisterDTO;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,9 +22,23 @@ public class User implements UserDetails {
 
     @Id
     private String matricula;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private UserRole role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Course> courses;
+
+    public User(RegisterDTO newUser, String encryptedPassword){
+        this.matricula = newUser.matricula();
+        this.password = encryptedPassword;
+        this.nome = newUser.name();
+        this.role = newUser.role();
+        this.courses = new ArrayList<>();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
