@@ -27,3 +27,72 @@ Lista do que fazer no back-end do projeto de cursos
 
 ### Observações
 O nome das variaveis no json são iguais ao nome das variaveis das classes dto.
+
+# Documentação
+
+## Autenticação
+- url: /api/auth
+- login: /login
+- registro: /register
+
+### Login
+- Get
+- Pede: String login, String password
+- Retorna: String token e a role do usuário
+
+### Registro
+- Post
+- Pede: String matricula, String password, String name, UserRole role
+- A senha é criptografada com o algoritmo BCrypt
+- Retorna: Nada, alem do status code 200
+
+## Cursos
+- url: /api/course
+
+### Lista de cursos disponíveis
+- Get
+- Pede: Nada, alem do token de autenticação
+- Retorna: id, name, description, imageUrl, videoUrl, userMatricula, null
+
+### Adicionar curso
+- Post
+- Pede: String name, String description, String imageUrl, String videoUrl, String userMatricula, UserRole role
+- Retorna: Nada, alem do status code 200
+
+### Update curso
+- Put
+- Pede: String name, String description, String imageUrl, String videoUrl, String userMatricula
+- Retorna: id, name, description, imageUrl, videoUrl, userMatricula, null
+
+### Invalidar curso
+- Delete
+- url: /api/course/delete/{id}
+- Pede: id
+- Retorna: Nada, alem do status code 200
+
+### Pegar todos os cursos de um usuário
+- Get
+- url: /api/user/{matricula}
+- Pede: matricula
+- Retorna: id, name, description, imageUrl, videoUrl, userMatricula, null
+- Observação: O metodo esta no UserController
+
+## Admin
+- url: /api/adm
+
+### Lista de cursos não disponíveis
+- Get
+- Pede: Login de um usuário com a role de admin
+- Retorna: id, name, description, imageUrl, videoUrl, userMatricula, null
+
+### Validar curso
+- Put
+- url: /api/adm/{id}
+- Pede: id e login de um usuário com a role de admin
+- Retorna: Nada, alem do status code 200
+
+### True Delete
+- Delete
+- url: /api/adm/{id}
+- Pede: id e login de um usuário com a role de admin
+- Retorna: Nada, alem do status code 200
