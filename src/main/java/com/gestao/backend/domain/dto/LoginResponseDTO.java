@@ -1,4 +1,6 @@
 package com.gestao.backend.domain.dto;
 
-public record LoginResponseDTO(String token) {
+import com.gestao.backend.domain.UserRole;
+
+public record LoginResponseDTO(String token, UserRole role) {
 }

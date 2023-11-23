@@ -23,8 +23,15 @@ public class AdministrationController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity deleteCourse(@PathVariable Long id) {
+    public ResponseEntity validateCourse(@PathVariable Long id) {
         courseService.validar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity TrueDeleteCourse(@PathVariable Long id) {
+        courseService.delete(id);
         return ResponseEntity.ok().build();
     }
 
