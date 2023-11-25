@@ -25,6 +25,18 @@ public class CourseServiceImpl implements CourseService {
     private final UserRepository userRepository;
 
     @Override
+    public CourseDTO getCourse(Long id) {
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        if (optionalCourse.isPresent()){
+            Course course = optionalCourse.get();
+            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
+            return courseDTO;
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Override
     public List<CourseDTO> findAllValidad() {
         //Quero achar a matricula de cada usuario que criou o curso e retornar uma lista de cursos trocando a classe User pela matricula do usuario
         List<CourseDTO> list = new ArrayList<>();

@@ -6,6 +6,9 @@ import com.gestao.backend.domain.dto.CourseDTO;
 import java.util.List;
 
 public interface CourseService {
+
+    CourseDTO getCourse(Long id);
+
     List<CourseDTO> findAllValidad();
     //List<Course> findAllValidad();
     List<CourseDTO> findAllNotValidad();

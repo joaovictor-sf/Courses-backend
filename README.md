@@ -49,6 +49,12 @@ O nome das variaveis no json são iguais ao nome das variaveis das classes dto.
 ## Cursos
 - url: /api/course
 
+### Pegar curso
+- Get
+- url: /api/course/{id}
+- Pede: id
+- Retorna: id, name, description, imageUrl, videoUrl, userMatricula, null
+
 ### Lista de cursos disponíveis
 - Get
 - Pede: Nada, alem do token de autenticação

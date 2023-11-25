@@ -28,11 +28,4 @@ public class AdministrationController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity TrueDeleteCourse(@PathVariable Long id) {
-        courseService.delete(id);
-        return ResponseEntity.ok().build();
-    }
-
 }

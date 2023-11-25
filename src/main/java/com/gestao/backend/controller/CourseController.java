@@ -18,6 +18,12 @@ public class CourseController {
     //private final CourseRepository courseRepository;
     private final CourseServiceImpl courseService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity getCourse(@PathVariable Long id) {
+        CourseDTO courseDTO = courseService.getCourse(id);
+        return ResponseEntity.ok(courseDTO);
+    }
+
     @GetMapping
     public ResponseEntity getAllCourse() {
         //var courses = courseRepository.findAllByActiveTrue();
