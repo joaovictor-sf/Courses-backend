@@ -34,8 +34,6 @@ public class CourseController {
     @PostMapping
     public ResponseEntity registerCourse(@RequestBody @Valid CourseDTO data) {
         courseService.add(data);
-        //Course course = new Course(data);
-        //courseRepository.save(course);
         return ResponseEntity.ok().build();
     }
 
@@ -43,7 +41,7 @@ public class CourseController {
     @Transactional
     public ResponseEntity updateCourse(@RequestBody @Valid CourseDTO data) {
         Course course = courseService.update(data);
-        CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
+        CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula(), course.getStatus(), course.getDescProfessor());
 
         if (course != null) return ResponseEntity.ok(courseDTO);
 

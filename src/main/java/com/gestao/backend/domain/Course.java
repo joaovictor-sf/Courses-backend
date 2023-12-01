@@ -21,6 +21,8 @@ public class Course {
     private String imageUrl;
     private String videoUrl;
     private Boolean active;
+    private String status;
+    private String descProfessor;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)//FetchType.LAZY: carrega o objeto apenas quando for necessário. optional = false: não permite que o objeto seja nulo
     @JoinColumn(name = "user_matricula", nullable = false)
@@ -38,11 +40,13 @@ public class Course {
 
     public Course(CourseDTO course, User user) {
         this.name = course.name();
-        this.description = "";
+        this.description = course.description();
         this.imageUrl = "";
-        this.videoUrl = "";
+        this.videoUrl = course.videoUrl();
         this.active = false;
         this.user = user;
+        this.status = "0";
+        this.descProfessor = "";
     }
 
 }

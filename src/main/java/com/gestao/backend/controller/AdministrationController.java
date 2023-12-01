@@ -1,5 +1,6 @@
 package com.gestao.backend.controller;
 
+import com.gestao.backend.domain.dto.CourseDTO;
 import com.gestao.backend.service.CourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AdministrationController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity validateCourse(@PathVariable Long id) {
+    public ResponseEntity validateCourse(@PathVariable Long id, @RequestBody CourseDTO body) {
         courseService.validar(id);
         return ResponseEntity.ok().build();
     }

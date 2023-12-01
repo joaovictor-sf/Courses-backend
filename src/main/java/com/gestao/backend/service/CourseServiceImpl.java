@@ -29,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
         Optional<Course> optionalCourse = courseRepository.findById(id);
         if (optionalCourse.isPresent()){
             Course course = optionalCourse.get();
-            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
+            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula(), course.getStatus(), course.getDescProfessor());
             return courseDTO;
         } else {
             throw new EntityNotFoundException();
@@ -41,7 +41,7 @@ public class CourseServiceImpl implements CourseService {
         //Quero achar a matricula de cada usuario que criou o curso e retornar uma lista de cursos trocando a classe User pela matricula do usuario
         List<CourseDTO> list = new ArrayList<>();
         for (Course course : courseRepository.findAllByActiveTrue()) {
-            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
+            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula(), course.getStatus(), course.getDescProfessor());
             list.add(courseDTO);
         }
         return list;
@@ -53,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseDTO> findAllNotValidad() {
         List<CourseDTO> list = new ArrayList<>();
         for (Course course : courseRepository.findAllByActiveFalse()) {
-            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula());
+            CourseDTO courseDTO = new CourseDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getVideoUrl(), course.getUser().getMatricula(), course.getStatus(), course.getDescProfessor());
             list.add(courseDTO);
         }
         return list;
@@ -62,7 +62,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void add(@RequestBody @Valid CourseDTO course) {
-
         Optional<User> optionalUser = userRepository.findById(course.userMatricula());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -86,6 +85,8 @@ public class CourseServiceImpl implements CourseService {
             newCourse.setDescription(course.description());
             newCourse.setImageUrl(course.imageUrl());
             newCourse.setVideoUrl(course.videoUrl());
+            newCourse.setStatus("0");
+            newCourse.setDescProfessor(course.descProfessor());
 
             Optional<User> optionalUser = userRepository.findById(course.userMatricula());
             if (optionalUser.isPresent()) {
@@ -108,6 +109,7 @@ public class CourseServiceImpl implements CourseService {
         if (optionalCourse.isPresent()){
             Course course = optionalCourse.get();
             course.setActive(false);
+            course.setStatus("2");
             courseRepository.save(course);
         } else {
             throw new EntityNotFoundException();
@@ -120,6 +122,7 @@ public class CourseServiceImpl implements CourseService {
         if (optionalCourse.isPresent()){
             Course course = optionalCourse.get();
             course.setActive(true);
+            course.setStatus("1");
             courseRepository.save(course);
         } else {
             throw new EntityNotFoundException();

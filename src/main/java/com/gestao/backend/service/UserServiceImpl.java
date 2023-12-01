@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         //Retornar uma lista de todos os cursos criados pelo usuario
         List<ListaDTO> list = new ArrayList<>();
         for (Course course : courseRepository.findAllByUserMatricula(matricula)) {
-            ListaDTO listaDTO = new ListaDTO(course.getId(), course.getName(), course.getDescription(), course.getImageUrl(), course.getUser().getMatricula(), course.getActive());
+            ListaDTO listaDTO = new ListaDTO(course.getId(), course.getVideoUrl(),course.getName(), course.getDescription(), course.getImageUrl(), course.getUser().getMatricula(), course.getActive(), course.getStatus());
             list.add(listaDTO);
         }
         return list;
